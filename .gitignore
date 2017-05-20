@@ -1,0 +1,7 @@
+test_images/non-vehicles
+test_images/non-vehicles_smallset
+test_images/vehicles
+test_images/vehicles_smallset
+
+__pycache__
+.DS_Store
