@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import time
 
-
 # Define a function to return HOG features and visualization
 def get_hog_features(img, orient, pix_per_cell, cell_per_block, 
                         vis=False, feature_vec=True):
@@ -277,17 +276,16 @@ def slide_window(img, x_start_stop=[None, None], y_start_stop=[None, None],
 # a list of image sizes and thresholds, 
 # window size (x and y dimensions),  
 # and overlap fraction (for both x and y)
-def multiple_slide_windows(image, image_sizes=[128,64,32], threshold_left=0, threshold_right=0, threshold_top=0, bottom_thresholds=[0, 32, 64]):
+def multiple_slide_windows(image, image_sizes=[128,64,32], threshold_left=0, threshold_right=0, threshold_top=0, bottom_thresholds=[0, 32, 64], xy_overlap=(0.5, 0.5)):
     windows = []
     for i in range(len(image_sizes)):
         image_size = image_sizes[i]
         threshold_bottom = bottom_thresholds[i]
-        
-        x_start_stop = [threshold_left, image.shape[1] - threshold_right]
+        x_start_stop = [threshold_left, image.shape[1] - threshold_right + 30]
         y_start_stop=[round(image.shape[0]/2) + threshold_top, image.shape[0] - threshold_bottom]
 
         windows += slide_window(image, x_start_stop=x_start_stop, y_start_stop=y_start_stop, 
-                                xy_window=(image_size, image_size), xy_overlap=(0.5, 0.5))
+                                xy_window=(image_size, image_size), xy_overlap=xy_overlap)
 
     return windows    
 
